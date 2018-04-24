@@ -7,7 +7,7 @@ type HomeController struct{
 }
 
 func(self *HomeController)Get(){
-	self.Ctx.WriteString(content)
+	self.Ctx.WriteString("hello every body")
 }
 
 func main() {
