@@ -7,18 +7,19 @@ import(
 )
 
 func main() {
-	db, err := sql.Open("mysql", "root:666666@tcp" +
+	db, err := sql.Open("mysql", "zhx:666666@tcp" +
 		"(localhost:3306)/test?charset=utf8")
 	checkErr(err)
-	// insert data
-	//stmt, err := db.Prepare("insert into userinfo(username,department,created) values(?,?,?)")
+	//insert data
+	//stmt, err := db.Prepare("insert into userinfo(" +
+	//	"username,department,created) values(?,?,?)")
 	//checkErr(err)
 	//res, err := stmt.Exec("zhaohuixin","golang","2018-04-25")
 	//checkErr(err)
 	//fmt.Println(res)
 
 	//update data
-	//stmt, err := db.Prepare("update userinfo set username=? where uid=?")
+	//stmt, err = db.Prepare("update userinfo set username=? where uid=?")
 	//checkErr(err)
 	//stmt.Exec("lucy",1)
 	//print(res)
@@ -39,8 +40,17 @@ func main() {
 		fmt.Println(department)
 		fmt.Println(created)
 	}
+	// delete data
+	stmt, err := db.Prepare("delete from userinfo where uid=?")
+	checkErr(err)
+	res, err := stmt.Exec(1)
+	checkErr(err)
+	affect, err := res.RowsAffected()
+	checkErr(err)
+	fmt.Println(affect)
+	db.Close()
+}
 
-	}
 func checkErr(err error) {
 	if err != nil {
 		panic(err)
